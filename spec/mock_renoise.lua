@@ -35,9 +35,20 @@ _G.renoise = {
   end,
 
   song = function()
-    return {
-      selected_phrase = mock_renoise.selected_phrase
-    }
+    -- Return a proxy that allows setting selected_phrase
+    return setmetatable({}, {
+      __index = function(t, k)
+        if k == "selected_phrase" then
+          return mock_renoise.selected_phrase
+        end
+        return nil
+      end,
+      __newindex = function(t, k, v)
+        if k == "selected_phrase" then
+          mock_renoise.selected_phrase = v
+        end
+      end
+    })
   end,
 
   app = function()

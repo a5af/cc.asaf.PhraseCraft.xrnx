@@ -5,12 +5,17 @@ spec/phrase_utils_spec.lua
 -- Tests for phrase utilities
 
 -- Load mock Renoise API
-require("spec.mock_renoise")
+local mock_renoise = require("spec.mock_renoise")
 
 -- Load the module to test
 local phrase_utils = require("utils.phrase_utils")
 
 describe("Phrase Utils", function()
+
+  before_each(function()
+    -- Reset mock state before each test
+    mock_renoise.reset()
+  end)
 
   describe("extract_code_blocks", function()
 

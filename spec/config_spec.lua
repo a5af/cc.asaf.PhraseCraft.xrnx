@@ -15,6 +15,8 @@ describe("Config", function()
   before_each(function()
     -- Initialize preferences for each test
     config.initialize_preferences()
+    -- Clear prompt history
+    config.prompt_history = {}
   end)
 
   describe("get_provider", function()
