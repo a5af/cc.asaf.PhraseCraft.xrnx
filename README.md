@@ -12,7 +12,8 @@ LLM Composer is a Renoise tool that lets you generate phrase script code by desc
 
 ## Features
 
-- 🤖 **Multiple LLM Providers**: Anthropic Claude, OpenAI ChatGPT, DeepSeek (v0.1 has Anthropic only)
+- 🆓 **Free Options Available**: Google Gemini (1,500 requests/day) and OpenRouter (free models)
+- 🤖 **Multiple LLM Providers**: Gemini, OpenRouter, Anthropic Claude, OpenAI, DeepSeek
 - 💬 **Natural Language**: Describe patterns in plain English
 - 📝 **Code Preview**: See generated code before using it
 - ⚙️ **Configurable**: Manage API keys and preferences
@@ -32,6 +33,8 @@ See [USAGE.md](USAGE.md) for detailed instructions.
 - Renoise 3.4.0+ (API version 6+)
 - `curl` installed and in PATH
 - API key from one of:
+  - **Google Gemini (FREE)**: https://aistudio.google.com - 1,500 requests/day
+  - **OpenRouter (FREE)**: https://openrouter.ai - Free models available
   - Anthropic Claude: https://console.anthropic.com/
   - OpenAI: https://platform.openai.com/api-keys
   - DeepSeek: https://platform.deepseek.com/
@@ -40,6 +43,7 @@ See [USAGE.md](USAGE.md) for detailed instructions.
 
 - **[DESIGN.md](DESIGN.md)**: Technical design and architecture
 - **[USAGE.md](USAGE.md)**: Installation and usage guide
+- **[FREE_PROVIDERS.md](FREE_PROVIDERS.md)**: Free LLM provider options (recommended)
 
 ## Project Structure
 
@@ -48,7 +52,9 @@ cc.asaf.LLMComposer.xrnx/
 ├── manifest.xml              # Tool metadata
 ├── main.lua                  # Entry point
 ├── api/
-│   └── anthropic_client.lua  # Claude API client
+│   ├── gemini_client.lua     # Google Gemini API (free)
+│   ├── openrouter_client.lua # OpenRouter API (free models)
+│   └── anthropic_client.lua  # Anthropic Claude API
 ├── http/
 │   └── https_client.lua      # HTTPS wrapper (curl)
 ├── ui/
@@ -60,18 +66,21 @@ cc.asaf.LLMComposer.xrnx/
 
 ## Current Status
 
-**Version 0.1 - MVP** ✅
+**Version 0.2** ✅
 
 Implemented:
+- [x] Google Gemini API (free tier - default)
+- [x] OpenRouter API (free models)
 - [x] Anthropic Claude API integration
-- [x] Prompt dialog UI
+- [x] Prompt dialog UI with all providers
 - [x] Code preview and copy
 - [x] API key configuration
 - [x] curl-based HTTPS client
+- [x] Comprehensive test suite
 
 Coming Soon:
-- [ ] OpenAI and DeepSeek support
-- [ ] Prompt history
+- [ ] OpenAI and DeepSeek API support
+- [ ] Prompt history UI
 - [ ] Direct code insertion (if API permits)
 - [ ] Context-aware prompts
 
@@ -94,4 +103,4 @@ Built for the Renoise community
 
 ---
 
-**Note**: This tool requires external API access and may incur costs. See USAGE.md for pricing details.
+**Note**: This tool works with both free and paid LLM providers. See [FREE_PROVIDERS.md](FREE_PROVIDERS.md) for completely free options (recommended for most users).

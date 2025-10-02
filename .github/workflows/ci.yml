@@ -128,6 +128,7 @@ jobs:
         cp README.md build/
         cp DESIGN.md build/
         cp USAGE.md build/
+        cp FREE_PROVIDERS.md build/
 
         # Create the package (Renoise tools are just renamed directories)
         cd build
@@ -157,7 +158,7 @@ jobs:
       run: |
         mkdir -p build
         cp -r api http ui utils build/
-        cp main.lua manifest.xml README.md DESIGN.md USAGE.md build/
+        cp main.lua manifest.xml README.md DESIGN.md USAGE.md FREE_PROVIDERS.md build/
         cd build
         zip -r ../LLMComposer-${{ github.ref_name }}.xrnx .
 

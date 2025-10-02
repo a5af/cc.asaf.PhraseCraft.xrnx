@@ -12,14 +12,18 @@ local config = {}
 
 config.preferences = renoise.Document.create("LLMComposerPreferences") {
   -- Provider selection
-  provider = "anthropic", -- "anthropic" | "openai" | "deepseek"
+  provider = "gemini", -- "gemini" | "openrouter" | "anthropic" | "openai" | "deepseek"
 
   -- API Keys (stored as observable strings)
+  gemini_api_key = "",
+  openrouter_api_key = "",
   anthropic_api_key = "",
   openai_api_key = "",
   deepseek_api_key = "",
 
   -- Model configurations
+  model_gemini = "gemini-1.5-flash",
+  model_openrouter = "meta-llama/llama-3.3-70b-instruct:free",
   model_anthropic = "claude-3-5-sonnet-20241022",
   model_openai = "gpt-4-turbo-preview",
   model_deepseek = "deepseek-coder",
@@ -66,7 +70,11 @@ end
 function config.get_api_key(provider)
   provider = provider or config.get_provider()
 
-  if provider == "anthropic" then
+  if provider == "gemini" then
+    return config.preferences.gemini_api_key.value
+  elseif provider == "openrouter" then
+    return config.preferences.openrouter_api_key.value
+  elseif provider == "anthropic" then
     return config.preferences.anthropic_api_key.value
   elseif provider == "openai" then
     return config.preferences.openai_api_key.value
@@ -80,7 +88,11 @@ end
 function config.get_model(provider)
   provider = provider or config.get_provider()
 
-  if provider == "anthropic" then
+  if provider == "gemini" then
+    return config.preferences.model_gemini.value
+  elseif provider == "openrouter" then
+    return config.preferences.model_openrouter.value
+  elseif provider == "anthropic" then
     return config.preferences.model_anthropic.value
   elseif provider == "openai" then
     return config.preferences.model_openai.value
@@ -112,7 +124,11 @@ function config.set_provider(provider)
 end
 
 function config.set_api_key(provider, key)
-  if provider == "anthropic" then
+  if provider == "gemini" then
+    config.preferences.gemini_api_key.value = key
+  elseif provider == "openrouter" then
+    config.preferences.openrouter_api_key.value = key
+  elseif provider == "anthropic" then
     config.preferences.anthropic_api_key.value = key
   elseif provider == "openai" then
     config.preferences.openai_api_key.value = key
@@ -122,7 +138,11 @@ function config.set_api_key(provider, key)
 end
 
 function config.set_model(provider, model)
-  if provider == "anthropic" then
+  if provider == "gemini" then
+    config.preferences.model_gemini.value = model
+  elseif provider == "openrouter" then
+    config.preferences.model_openrouter.value = model
+  elseif provider == "anthropic" then
     config.preferences.model_anthropic.value = model
   elseif provider == "openai" then
     config.preferences.model_openai.value = model
@@ -143,7 +163,15 @@ function config.validate_api_key(provider)
   end
 
   -- Basic format validation
-  if provider == "anthropic" then
+  if provider == "gemini" then
+    if not key:match("^AIza") then
+      return false, "Invalid Gemini API key format (should start with 'AIza')"
+    end
+  elseif provider == "openrouter" then
+    if not key:match("^sk%-") then
+      return false, "Invalid OpenRouter API key format (should start with 'sk-')"
+    end
+  elseif provider == "anthropic" then
     if not key:match("^sk%-ant%-") then
       return false, "Invalid Anthropic API key format (should start with 'sk-ant-')"
     end

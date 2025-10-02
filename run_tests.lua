@@ -15,6 +15,8 @@ local test_runner = require("spec.test_runner")
 local test_files = {
   "spec/phrase_utils_spec.lua",
   "spec/config_spec.lua",
+  "spec/gemini_client_spec.lua",
+  "spec/openrouter_client_spec.lua",
 }
 
 -- Run tests

@@ -6,6 +6,8 @@ ui/prompt_panel.lua
 
 local config = require("utils.config")
 local phrase_utils = require("utils.phrase_utils")
+local GeminiClient = require("api.gemini_client")
+local OpenRouterClient = require("api.openrouter_client")
 local anthropic_client = require("api.anthropic_client")
 
 local ui = {}
@@ -112,7 +114,11 @@ local function handle_generate()
   local model = config.get_model(provider)
   local timeout = config.get_timeout()
 
-  if provider == "anthropic" then
+  if provider == "gemini" then
+    client = GeminiClient.new(api_key, model)
+  elseif provider == "openrouter" then
+    client = OpenRouterClient.new(api_key, model)
+  elseif provider == "anthropic" then
     client = anthropic_client.create(api_key, model)
   else
     generate_button.active = true
@@ -201,29 +207,55 @@ function ui.show_settings()
   -- Get current values
   local provider = config.get_provider()
   local provider_index = 1
-  if provider == "openai" then
+  if provider == "openrouter" then
     provider_index = 2
-  elseif provider == "deepseek" then
+  elseif provider == "anthropic" then
     provider_index = 3
+  elseif provider == "openai" then
+    provider_index = 4
+  elseif provider == "deepseek" then
+    provider_index = 5
   end
 
+  local gemini_key = config.get_api_key("gemini")
+  local openrouter_key = config.get_api_key("openrouter")
   local anthropic_key = config.get_api_key("anthropic")
   local openai_key = config.get_api_key("openai")
   local deepseek_key = config.get_api_key("deepseek")
 
   -- Create UI elements
   local provider_popup = settings_vb:popup {
-    items = {"Anthropic Claude", "OpenAI ChatGPT", "DeepSeek"},
+    items = {"Google Gemini (Free)", "OpenRouter (Free)", "Anthropic Claude", "OpenAI ChatGPT", "DeepSeek"},
     value = provider_index,
     width = 200,
     notifier = function(idx)
       if idx == 1 then
-        config.set_provider("anthropic")
+        config.set_provider("gemini")
       elseif idx == 2 then
-        config.set_provider("openai")
+        config.set_provider("openrouter")
       elseif idx == 3 then
+        config.set_provider("anthropic")
+      elseif idx == 4 then
+        config.set_provider("openai")
+      elseif idx == 5 then
         config.set_provider("deepseek")
       end
+    end
+  }
+
+  local gemini_field = settings_vb:textfield {
+    text = gemini_key,
+    width = 400,
+    notifier = function(text)
+      config.set_api_key("gemini", text)
+    end
+  }
+
+  local openrouter_field = settings_vb:textfield {
+    text = openrouter_key,
+    width = 400,
+    notifier = function(text)
+      config.set_api_key("openrouter", text)
     end
   }
 
@@ -278,6 +310,24 @@ function ui.show_settings()
     settings_vb:row {
       spacing = 5,
       settings_vb:text {
+        text = "Gemini (Free):",
+        width = 120
+      },
+      gemini_field
+    },
+
+    settings_vb:row {
+      spacing = 5,
+      settings_vb:text {
+        text = "OpenRouter (Free):",
+        width = 120
+      },
+      openrouter_field
+    },
+
+    settings_vb:row {
+      spacing = 5,
+      settings_vb:text {
         text = "Anthropic:",
         width = 120
       },
@@ -304,6 +354,8 @@ function ui.show_settings()
 
     settings_vb:text {
       text = "Get API keys from:\n" ..
+             "  • Gemini (FREE): https://aistudio.google.com\n" ..
+             "  • OpenRouter (FREE): https://openrouter.ai\n" ..
              "  • Anthropic: https://console.anthropic.com/\n" ..
              "  • OpenAI: https://platform.openai.com/api-keys\n" ..
              "  • DeepSeek: https://platform.deepseek.com/",

@@ -24,7 +24,7 @@ describe("Config", function()
     it("should return default provider", function()
       local provider = config.get_provider()
 
-      assert_equals(provider, "anthropic")
+      assert_equals(provider, "gemini")
     end)
 
   end)
@@ -57,6 +57,18 @@ describe("Config", function()
       config.set_api_key("deepseek", "ds-test789")
 
       assert_equals(config.get_api_key("deepseek"), "ds-test789")
+    end)
+
+    it("should set and get Gemini API key", function()
+      config.set_api_key("gemini", "AIzaSyTest123")
+
+      assert_equals(config.get_api_key("gemini"), "AIzaSyTest123")
+    end)
+
+    it("should set and get OpenRouter API key", function()
+      config.set_api_key("openrouter", "sk-or-test456")
+
+      assert_equals(config.get_api_key("openrouter"), "sk-or-test456")
     end)
 
   end)
@@ -103,6 +115,42 @@ describe("Config", function()
       config.set_api_key("anthropic", "")
 
       local valid, err = config.validate_api_key("anthropic")
+
+      assert_false(valid)
+      assert_not_nil(err)
+    end)
+
+    it("should validate Gemini key format", function()
+      config.set_api_key("gemini", "AIzaSyTest123")
+
+      local valid, err = config.validate_api_key("gemini")
+
+      assert_true(valid)
+      assert_nil(err)
+    end)
+
+    it("should reject invalid Gemini key format", function()
+      config.set_api_key("gemini", "invalid-key")
+
+      local valid, err = config.validate_api_key("gemini")
+
+      assert_false(valid)
+      assert_not_nil(err)
+    end)
+
+    it("should validate OpenRouter key format", function()
+      config.set_api_key("openrouter", "sk-or-test123")
+
+      local valid, err = config.validate_api_key("openrouter")
+
+      assert_true(valid)
+      assert_nil(err)
+    end)
+
+    it("should reject invalid OpenRouter key format", function()
+      config.set_api_key("openrouter", "invalid-key")
+
+      local valid, err = config.validate_api_key("openrouter")
 
       assert_false(valid)
       assert_not_nil(err)

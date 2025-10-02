@@ -21,9 +21,16 @@
 
 You'll need an API key from at least one provider:
 
-- **Anthropic Claude** (Recommended): https://console.anthropic.com/
+**Free Options (Recommended):**
+- **Google Gemini** (Default, FREE): https://aistudio.google.com - 1,500 requests/day, no credit card
+- **OpenRouter** (FREE models): https://openrouter.ai - 50-1,000 requests/day
+
+**Paid Options:**
+- **Anthropic Claude**: https://console.anthropic.com/
 - **OpenAI ChatGPT**: https://platform.openai.com/api-keys
 - **DeepSeek**: https://platform.deepseek.com/
+
+See [FREE_PROVIDERS.md](FREE_PROVIDERS.md) for detailed comparison and setup instructions.
 
 ### 2. Configure API Key
 
