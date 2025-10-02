@@ -97,6 +97,11 @@ function it(test_name, test_func)
   current_test = test_name
   stats.total = stats.total + 1
 
+  -- Run before_each if defined
+  if test_runner._before_each then
+    pcall(test_runner._before_each)
+  end
+
   local success, err = pcall(test_func)
 
   if success then
@@ -111,6 +116,11 @@ function it(test_name, test_func)
       test = test_name,
       error = err
     })
+  end
+
+  -- Run after_each if defined
+  if test_runner._after_each then
+    pcall(test_runner._after_each)
   end
 
   current_test = ""
