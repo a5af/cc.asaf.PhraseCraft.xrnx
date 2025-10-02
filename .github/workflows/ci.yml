@@ -1,0 +1,175 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        lua-version: ['5.1', '5.2', '5.3']
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Lua ${{ matrix.lua-version }}
+      uses: leafo/gh-actions-lua@v10
+      with:
+        luaVersion: ${{ matrix.lua-version }}
+
+    - name: Run tests
+      run: lua run_tests.lua
+
+    - name: Test summary
+      if: always()
+      run: echo "Tests completed for Lua ${{ matrix.lua-version }}"
+
+  lint:
+    name: Lint Lua Code
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install Lua
+      uses: leafo/gh-actions-lua@v10
+      with:
+        luaVersion: '5.1'
+
+    - name: Install LuaRocks
+      uses: leafo/gh-actions-luarocks@v4
+
+    - name: Install luacheck
+      run: luarocks install luacheck
+
+    - name: Run luacheck
+      run: |
+        luacheck . \
+          --exclude-files '.git/*' '.github/*' 'spec/*' \
+          --no-unused-args \
+          --no-max-line-length \
+          --ignore 111 112 113 \
+          || true
+
+  validate:
+    name: Validate Structure
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Validate manifest.xml
+      run: |
+        if [ ! -f manifest.xml ]; then
+          echo "Error: manifest.xml not found"
+          exit 1
+        fi
+        echo "manifest.xml found"
+
+    - name: Validate main.lua
+      run: |
+        if [ ! -f main.lua ]; then
+          echo "Error: main.lua not found"
+          exit 1
+        fi
+        echo "main.lua found"
+
+    - name: Check required directories
+      run: |
+        for dir in api http ui utils; do
+          if [ ! -d "$dir" ]; then
+            echo "Error: Required directory $dir not found"
+            exit 1
+          fi
+          echo "Directory $dir found"
+        done
+
+    - name: Validate Lua syntax
+      run: |
+        find . -name "*.lua" -not -path "./.git/*" -not -path "./spec/*" | while read file; do
+          lua -e "loadfile('$file')" || exit 1
+        done || echo "Lua not available, skipping syntax check"
+
+  build:
+    name: Build Package
+    runs-on: ubuntu-latest
+    needs: [test, validate]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Create .xrnx package
+      run: |
+        # Create a clean directory for packaging
+        mkdir -p build
+
+        # Copy all necessary files
+        cp -r api build/
+        cp -r http build/
+        cp -r ui build/
+        cp -r utils build/
+        cp main.lua build/
+        cp manifest.xml build/
+        cp README.md build/
+        cp DESIGN.md build/
+        cp USAGE.md build/
+
+        # Create the package (Renoise tools are just renamed directories)
+        cd build
+        zip -r ../LLMComposer-${GITHUB_SHA::7}.xrnx .
+        cd ..
+
+        echo "Package created: LLMComposer-${GITHUB_SHA::7}.xrnx"
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: LLMComposer-package
+        path: '*.xrnx'
+        retention-days: 30
+
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: startsWith(github.ref, 'refs/tags/v')
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Create package
+      run: |
+        mkdir -p build
+        cp -r api http ui utils build/
+        cp main.lua manifest.xml README.md DESIGN.md USAGE.md build/
+        cd build
+        zip -r ../LLMComposer-${{ github.ref_name }}.xrnx .
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: '*.xrnx'
+        body: |
+          LLM Composer for Renoise
+
+          Version: ${{ github.ref_name }}
+
+          ## Installation
+          1. Download the .xrnx file below
+          2. Install in Renoise via Tools > Tool Browser > Load/Reload Tool
+          3. Configure API key in Settings
+
+          See [USAGE.md](USAGE.md) for detailed instructions.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

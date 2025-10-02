@@ -1,0 +1,42 @@
+# Renoise Tool specific
+*.xrnx.zip
+
+# Lua
+*.luac
+luac.out
+
+# Testing
+.busted
+spec/output/
+coverage/
+luacov.*.out
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.orig
+
+# Local configuration (user-specific)
+.claude/
+
+# Dependencies (if we add luarocks)
+lua_modules/
+.luarocks/
+
+# Build artifacts
+build/
+*.xrnx
+
+# CI artifacts
+*.log

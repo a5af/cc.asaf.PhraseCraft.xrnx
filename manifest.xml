@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RenoiseScriptingTool doc_version="0">
+  <ApiVersion>6</ApiVersion>
+  <Id>cc.asaf.LLMComposer</Id>
+  <Version>0.1</Version>
+  <Name>LLM Composer</Name>
+  <Author>Asaf</Author>
+  <Description>Generate phrase scripts using LLM prompts (Anthropic Claude, OpenAI ChatGPT, DeepSeek)</Description>
+  <Category>Pattern Editor</Category>
+  <Homepage>https://github.com/asafe/LLMComposer.xrnx</Homepage>
+</RenoiseScriptingTool>
