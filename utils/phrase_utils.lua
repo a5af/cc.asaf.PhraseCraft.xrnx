@@ -6,6 +6,9 @@ utils/phrase_utils.lua
 
 local phrase_utils = {}
 
+-- Lua 5.1 / 5.2+ compatibility
+local loadstring = loadstring or load
+
 --------------------------------------------------------------------------------
 -- Phrase Detection
 --------------------------------------------------------------------------------
