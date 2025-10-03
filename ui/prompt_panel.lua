@@ -288,7 +288,7 @@ function ui.show_settings()
     spacing = 10,
 
     settings_vb:text {
-      text = "LLM Composer Settings",
+      text = "PhraseCraft Settings",
       font = "bold"
     },
 
@@ -371,7 +371,7 @@ function ui.show_settings()
     }
   }
 
-  renoise.app():show_custom_dialog("LLM Composer Settings", content)
+  renoise.app():show_custom_dialog("PhraseCraft Settings", content)
 end
 
 --------------------------------------------------------------------------------
@@ -436,7 +436,7 @@ function ui.show_dialog()
     spacing = 5,
 
     vb:text {
-      text = "LLM Composer - Phrase Script Generator",
+      text = "PhraseCraft - AI Phrase Script Generator",
       font = "bold"
     },
 
@@ -486,7 +486,7 @@ function ui.show_dialog()
   }
 
   -- Show dialog
-  dialog = renoise.app():show_custom_dialog("LLM Composer", dialog_content)
+  dialog = renoise.app():show_custom_dialog("PhraseCraft", dialog_content)
 end
 
 return ui

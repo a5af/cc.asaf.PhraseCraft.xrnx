@@ -1,8 +1,8 @@
-# LLM Composer - Usage Guide
+# PhraseCraft - Usage Guide
 
 ## Installation
 
-1. **Package the tool**: Rename this directory from `cc.asaf.LLMComposer.xrnx` to have the `.xrnx` extension (it's actually a directory, but Renoise recognizes it as a tool)
+1. **Package the tool**: Rename this directory from `cc.asaf.PhraseCraft.xrnx` to have the `.xrnx` extension (it's actually a directory, but Renoise recognizes it as a tool)
 
 2. **Install in Renoise**:
    - Open Renoise
@@ -34,7 +34,7 @@ See [FREE_PROVIDERS.md](FREE_PROVIDERS.md) for detailed comparison and setup ins
 
 ### 2. Configure API Key
 
-1. In Renoise, go to `Tools > LLM Composer > Settings...`
+1. In Renoise, go to `Tools > PhraseCraft > Settings...`
 2. Select your preferred provider
 3. Paste your API key
 4. Click "Close"
@@ -45,8 +45,8 @@ See [FREE_PROVIDERS.md](FREE_PROVIDERS.md) for detailed comparison and setup ins
 
 1. **Open the Instrument Phrase Editor** in Renoise
 2. **Select or create a phrase**
-3. **Launch LLM Composer**:
-   - Menu: `Tools > LLM Composer...`
+3. **Launch PhraseCraft**:
+   - Menu: `Tools > PhraseCraft...`
    - Or set up a keyboard shortcut in Renoise preferences
 
 4. **Enter your prompt**, for example:

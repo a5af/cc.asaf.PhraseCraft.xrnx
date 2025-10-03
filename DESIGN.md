@@ -1,8 +1,8 @@
-# LLMComposer - Design Proposal
+# PhraseCraft - Design Proposal
 
 ## Overview
 
-LLMComposer is a Renoise extension that integrates Large Language Model APIs directly into the Phrase Script Editor, allowing users to generate Lua code through natural language prompts. When "Script" mode is selected in the phrase editor, a text input interface appears that sends requests to LLM providers (Anthropic Claude, OpenAI ChatGPT, or DeepSeek) and inserts the generated code directly into the editor.
+PhraseCraft is a Renoise extension that integrates AI language model APIs directly into the Phrase Script Editor, allowing users to craft Lua code through natural language prompts. When "Script" mode is selected in the phrase editor, a text input interface appears that sends requests to LLM providers (Anthropic Claude, OpenAI ChatGPT, or DeepSeek) and inserts the generated code directly into the editor.
 
 ## Feasibility Assessment
 
@@ -30,7 +30,7 @@ The implementation is highly feasible using Renoise's Lua scripting API:
 ### Component Structure
 
 ```
-LLMComposer.xrnx/
+PhraseCraft.xrnx/
 ├── manifest.xml                 # Tool metadata and configuration
 ├── main.lua                     # Entry point, tool initialization
 ├── api/

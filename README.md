@@ -1,10 +1,10 @@
-# LLM Composer for Renoise
+# PhraseCraft for Renoise
 
-Generate Renoise phrase scripts using natural language prompts powered by LLM APIs.
+Craft Renoise phrase scripts using natural language prompts powered by AI.
 
 ## Overview
 
-LLM Composer is a Renoise tool that lets you generate phrase script code by describing what you want in plain English. Instead of manually writing Lua code, simply describe your pattern or effect, and the LLM will generate the code for you.
+PhraseCraft is a Renoise tool that lets you generate phrase script code by describing what you want in plain English. Instead of manually writing Lua code, simply describe your pattern or effect, and AI will craft the code for you.
 
 **Example:**
 - Prompt: "Create a random arpeggio in C minor"
@@ -22,8 +22,8 @@ LLM Composer is a Renoise tool that lets you generate phrase script code by desc
 ## Quick Start
 
 1. **Install**: Copy this directory to your Renoise tools folder
-2. **Configure**: `Tools > LLM Composer > Settings` - add your API key
-3. **Use**: `Tools > LLM Composer` - enter a prompt and generate code
+2. **Configure**: `Tools > PhraseCraft > Settings` - add your API key
+3. **Use**: `Tools > PhraseCraft` - enter a prompt and generate code
 4. **Copy**: Copy the generated code and paste into your phrase script editor
 
 See [USAGE.md](USAGE.md) for detailed instructions.
@@ -48,7 +48,7 @@ See [USAGE.md](USAGE.md) for detailed instructions.
 ## Project Structure
 
 ```
-cc.asaf.LLMComposer.xrnx/
+cc.asaf.PhraseCraft.xrnx/
 ├── manifest.xml              # Tool metadata
 ├── main.lua                  # Entry point
 ├── api/

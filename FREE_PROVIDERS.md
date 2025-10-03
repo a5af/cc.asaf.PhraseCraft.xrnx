@@ -1,10 +1,10 @@
-# Free LLM Provider Options for LLM Composer
+# Free AI Provider Options for PhraseCraft
 
-This document outlines free LLM provider options that can be used with LLM Composer, with no credit card required.
+This document outlines free AI provider options that can be used with PhraseCraft, with no credit card required.
 
 ## Overview
 
-While LLM Composer was designed with paid providers (Anthropic Claude, OpenAI, DeepSeek) in mind, there are several **completely free** alternatives that work just as well for generating Renoise phrase scripts. This guide covers the best free options as of 2025.
+While PhraseCraft supports paid providers (Anthropic Claude, OpenAI, DeepSeek), there are several **completely free** alternatives that work just as well for crafting Renoise phrase scripts. This guide covers the best free options as of 2025.
 
 ---
 

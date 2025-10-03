@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RenoiseScriptingTool doc_version="0">
   <ApiVersion>6</ApiVersion>
-  <Id>cc.asaf.LLMComposer</Id>
+  <Id>cc.asaf.PhraseCraft</Id>
   <Version>0.2</Version>
-  <Name>LLM Composer</Name>
+  <Name>PhraseCraft</Name>
   <Author>Asaf</Author>
-  <Description>Generate phrase scripts using LLM prompts (Google Gemini FREE, OpenRouter FREE, Anthropic Claude, OpenAI, DeepSeek)</Description>
+  <Description>Craft Renoise phrase scripts using AI prompts (Google Gemini FREE, OpenRouter FREE, Anthropic Claude, OpenAI, DeepSeek)</Description>
   <Category>Pattern Editor</Category>
-  <Homepage>https://github.com/asafe/LLMComposer.xrnx</Homepage>
+  <Homepage>https://github.com/asafe/PhraseCraft.xrnx</Homepage>
 </RenoiseScriptingTool>

@@ -2,8 +2,8 @@
 main.lua
 ============================================================================]]--
 
--- LLM Composer - Renoise Tool
--- Generate phrase scripts using LLM prompts
+-- PhraseCraft - Renoise Tool
+-- Craft phrase scripts using AI prompts
 
 --------------------------------------------------------------------------------
 -- Tool Properties
@@ -28,14 +28,14 @@ local phrase_utils = nil
 
 -- Add menu entries
 renoise.tool():add_menu_entry {
-  name = "Main Menu:Tools:LLM Composer...",
+  name = "Main Menu:Tools:PhraseCraft...",
   invoke = function()
-    show_llm_composer_dialog()
+    show_phrasecraft_dialog()
   end
 }
 
 renoise.tool():add_menu_entry {
-  name = "Main Menu:Tools:LLM Composer:Settings...",
+  name = "Main Menu:Tools:PhraseCraft:Settings...",
   invoke = function()
     show_settings_dialog()
   end
@@ -43,9 +43,9 @@ renoise.tool():add_menu_entry {
 
 -- Add keybinding
 renoise.tool():add_keybinding {
-  name = "Global:Tools:LLM Composer",
+  name = "Global:Tools:PhraseCraft",
   invoke = function()
-    show_llm_composer_dialog()
+    show_phrasecraft_dialog()
   end
 }
 
@@ -53,7 +53,7 @@ renoise.tool():add_keybinding {
 -- Main Functions
 --------------------------------------------------------------------------------
 
-function show_llm_composer_dialog()
+function show_phrasecraft_dialog()
   -- Load UI module on demand
   if not ui then
     ui = require("ui.prompt_panel")
@@ -80,4 +80,4 @@ config = require("utils.config")
 config.initialize_preferences()
 
 -- Show notification on first load
-print("LLM Composer v0.1 loaded successfully")
+print("PhraseCraft v0.2 loaded successfully")

@@ -10,7 +10,7 @@ local config = {}
 -- Preferences
 --------------------------------------------------------------------------------
 
-config.preferences = renoise.Document.create("LLMComposerPreferences") {
+config.preferences = renoise.Document.create("PhraseCraftPreferences") {
   -- Provider selection
   provider = "gemini", -- "gemini" | "openrouter" | "anthropic" | "openai" | "deepseek"
 
