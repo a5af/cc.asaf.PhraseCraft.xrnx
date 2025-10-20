@@ -1,38 +1,71 @@
 # MASTER GUIDE REFERENCE
 
-**⚠️ IMPORTANT: You are in a SUBMODULE, not the parent repository.**
+**⚠️ IMPORTANT: Project-Level Documentation Reference**
 
 ---
 
-## 🚨 STOP: Read Parent Repository's Master Guide
+## 🚨 STOP: Read the Shared Documentation
 
-This repository (`cc.asaf.PhraseCraft.xrnx`) is a **Git submodule** of the parent `WebProjects` workspace.
+This project is part of the **asafebgi organization** and follows the shared agent workflow documented in:
 
-**The comprehensive agent guide you need is located in the PARENT repository:**
+**📖 Shared Documentation Wiki:**
+https://github.com/a5af/shared-docs/wiki/guides-Master-Guide-Agent-Essentials
 
+**📄 Local Copy:**
 ```
-../_docs/MASTER_GUIDE_AGENT_ESSENTIALS.md
+/d/Code/shared-docs/_docs/MASTER_GUIDE_AGENT_ESSENTIALS.md
 ```
 
-**Full absolute path (example for Agent5):**
+---
+
+## Current Architecture (2025-10-18)
+
+### Project Structure
+
+This project is located in:
 ```
-D:\Code\WebProjects5\_docs\MASTER_GUIDE_AGENT_ESSENTIALS.md
+/d/Code/projects/cc.asaf.PhraseCraft.xrnx/
+```
+
+### Worktree Structure
+
+Each agent works in their own worktree:
+```
+/d/Code/projects/cc.asaf.PhraseCraft.xrnx/
+├── .git/                  # Shared git repository
+└── worktrees/             # Agent worktrees
+    ├── agentx/
+    ├── agent1/
+    ├── agent2/
+    ├── agent3/
+    ├── agent4/
+    └── agent5/
+```
+
+### Agent Workspaces
+
+Agents access projects via symlinked workspaces:
+```
+/d/Code/agent-workspaces/agent1/
+├── pulse -> /d/Code/projects/pulse/worktrees/agent1
+├── askbase -> /d/Code/projects/askbase/worktrees/agent1
+└── (other projects...)
 ```
 
 ---
 
 ## Why This Matters
 
-When you're working inside a submodule directory, you may forget you're in a nested repository context. The parent repository contains:
+The shared documentation contains:
 
 ✅ **Complete agent startup procedures**
 ✅ **Security requirements and rules**
 ✅ **Engineering principles**
 ✅ **GitHub workflow and PR requirements**
-✅ **Workspace structure and navigation**
+✅ **Authentication and credential management**
 ✅ **Troubleshooting guides**
 
-**This submodule is part of the larger WebProjects workspace ecosystem.**
+**This project follows the organization-wide agent workflow.**
 
 ---
 
@@ -41,39 +74,38 @@ When you're working inside a submodule directory, you may forget you're in a nes
 ### To Read the Master Guide
 
 ```bash
-# From this submodule directory (cc.asaf.PhraseCraft.xrnx):
-cd ..
-cat _docs/MASTER_GUIDE_AGENT_ESSENTIALS.md
+# View online (always up-to-date):
+# https://github.com/a5af/shared-docs/wiki/guides-Master-Guide-Agent-Essentials
 
-# Or use your editor/viewer:
-code ../_docs/MASTER_GUIDE_AGENT_ESSENTIALS.md
+# Or read local copy:
+cat /d/Code/shared-docs/_docs/MASTER_GUIDE_AGENT_ESSENTIALS.md
 ```
 
-### To Return to Parent Workspace Root
+### To Navigate to Your Worktree
 
 ```bash
-cd ..
-pwd  # Should show: .../WebProjectsN (where N matches your agent)
+# Example for Agent1 working on this project:
+cd /d/Code/projects/cc.asaf.PhraseCraft.xrnx/worktrees/agent1
+
+# Or via agent workspace:
+cd /d/Code/agent-workspaces/agent1/cc.asaf.PhraseCraft.xrnx
 ```
 
 ---
 
 ## Quick Context Check
 
-**Are you in a submodule?**
-```bash
-git rev-parse --show-superproject-working-tree
-```
-- If output shows a path → You're in a submodule
-- If empty → You're in the parent workspace root
-
-**Which repository are you in?**
+**Which worktree am I in?**
 ```bash
 pwd
-basename $(pwd)
+basename $(pwd)  # Should show: agentx, agent1, agent2, etc.
 ```
-- `cc.asaf.PhraseCraft.xrnx` → You're in this submodule
-- `WebProjects` or `WebProjectsN` → You're in parent workspace
+
+**What project am I working on?**
+```bash
+basename $(dirname $(dirname $(pwd)))
+# Or just look at the parent directory name
+```
 
 ---
 
@@ -81,24 +113,38 @@ basename $(pwd)
 
 ❌ This is NOT a replacement for the master guide
 ❌ This is NOT comprehensive documentation
-❌ This is NOT project-specific instructions
+❌ This is NOT the complete agent workflow guide
 
-**This is simply a pointer** to help you navigate back to the parent repository's comprehensive guide.
+**This is simply a pointer** to help you find the shared documentation.
 
 ---
 
 ## Project-Specific Documentation
 
-For `cc.asaf.PhraseCraft.xrnx`-specific documentation (architecture, setup, API docs), see:
+For **cc.asaf.PhraseCraft.xrnx**-specific documentation (architecture, setup, API docs), see:
 - `README.md` (this repository)
 - `docs/` directory (if exists)
 - Project-specific guides in this repo
 
 For **agent workflow, security rules, and startup procedures**, always refer to:
-- `../_docs/MASTER_GUIDE_AGENT_ESSENTIALS.md` (parent repository)
+- **Wiki:** https://github.com/a5af/shared-docs/wiki/guides-Master-Guide-Agent-Essentials
+- **Local:** `/d/Code/shared-docs/_docs/MASTER_GUIDE_AGENT_ESSENTIALS.md`
 
 ---
 
-**Remember:** When working across submodules, always maintain awareness of your current repository context.
+## Key Documentation Links
 
-**Last Updated:** 2025-10-15
+**Main Wiki:** https://github.com/a5af/shared-docs/wiki
+
+**Essential Guides:**
+- [MASTER GUIDE v2.0](https://github.com/a5af/shared-docs/wiki/guides-Master-Guide-Agent-Essentials) - Complete startup procedure
+- [Architecture Overview](https://github.com/a5af/shared-docs/wiki/architecture-Overview) - System architecture
+- [Agent Engineering Principles](https://github.com/a5af/shared-docs/wiki/guides-Agent-Engineering-Principles)
+- [GitHub Credentials](https://github.com/a5af/shared-docs/wiki/guides-Agent-GitHub-Credentials)
+- [Security Hooks](https://github.com/a5af/shared-docs/wiki/guides-Security-Hooks)
+
+---
+
+**Remember:** Always refer to the shared documentation wiki for the most up-to-date agent workflow information.
+
+**Last Updated:** 2025-10-19
